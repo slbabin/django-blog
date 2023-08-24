@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from .models import Post
 from .forms import CommentForm
 
+from django.contrib import messages
 
 class PostList(generic.ListView):
     model = Post
@@ -50,6 +51,7 @@ class PostDetail(View):
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
+            messages.success(request, 'You comment was successfully uploaded and will be published after admin approves it!')
         else:
             comment_form = CommentForm()
 
